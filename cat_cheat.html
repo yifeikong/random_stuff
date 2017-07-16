@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+      #author {
+        color:#999;
+      }
+      #hint {
+        color: #00f;
+      }
+
+    </style>
+    <title>神经猫作弊器 想走几步就走几步</title>
+  </head>
+  <body>
+  <p id="show-message">神经猫作弊器 想走几步就走几步</p>
+  <hr/>
+    <form>
+    <label>想走几步</label><br/>
+      <input id="steps" type="text" placeholder="Input your steps" value = "0"/><br/>
+      <label>想赢百分之几</label><br/>
+      <input id="percentage" type="text" placeholder="how many do you beat" value="100"/><br/>
+      <!--<label>留条消息</label><br/>
+      <input id="message" type="text" placeholder="yourmessage" value="哈哈，你上当了"/><br/>-->
+      <input id='generate' type="button" value="1.猛击这里"/>
+    </form>
+    <p id="hint"></p>
+    <p id="author">by kongyifei</p>
+    <script type="text/javascript">
+      document.addEventListener("DOMContentLoaded", function() {
+
+        var makeTitle = function (steps, per) {
+          return '我用了' + parseInt(steps) + '步围住神经猫，击败'+parseInt(per)+'%的人，你能超过我吗？'
+        }
+
+        var makeHash = function (steps, per, msg) {
+          return steps + '/' + per; // + '/' + msg;
+        }
+
+        var $button = document.getElementById('generate'); // $var means html element
+        var $showMessage = document.getElementById('show-message');
+        var $steps = document.getElementById('steps');
+        var $percentage = document.getElementById('percentage');
+        var $hint = document.getElementById('hint');
+        // var $message = document.getElementById('message');
+
+        if(window.location.hash) {
+          var hashString = location.hash.substr(1);
+          var vs = hashString.split('/');
+          $steps.value = vs[0];
+          $percentage.value = vs[1];
+          // $showMessage.innerHTML = $message.value = vs[2];
+          $showMessage.innerHTML = "蛤蛤，上当了";
+          // location.href = 'http://1251001823.cdn.myqcloud.com/1251001823/wechat/sjm/launcher';
+        }
+        
+        $button.addEventListener('click', function () {
+          document.title = makeTitle($steps.value, $percentage.value);
+          location.hash = makeHash($steps.value, $percentage.value /*, $message.value*/);
+          $hint.innerHTML = "2.右上角分享";
+        });
+      });
+      
+    </script>
+  </body>
+</html>
